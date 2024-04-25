@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Booking List</title>
+</head>
+<body>
+<h1>Booking List</h1>
+<ul>
+    <li th:each="booking : ${bookings}">
+        <a th:href="@{/bookings/{id}(id=${booking.id})}" th:text="${booking.startDate + ' to ' + booking.endDate}"></a>
+    </li>
+</ul>
+<a th:href="@{/bookings/create}">Create New Booking</a>
+</body>
+</html>

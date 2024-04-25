@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Booking Detail</title>
+</head>
+<body>
+<h1>Booking Detail</h1>
+<div>
+    <p>ID: <span th:text="${booking.id}"></span></p>
+    <p>Start Date: <span th:text="${booking.startDate}"></span></p>
+    <p>End Date: <span th:text="${booking.endDate}"></span></p>
+    <p>Total Cost: <span th:text="${booking.totalCost}"></span></p>
+    <p>Car: <span th:text="${booking.car.model}"></span></p>
+    <p>Customer: <span th:text="${booking.customer.name}"></span></p>
+</div>
+<a th:href="@{/bookings/{id}/edit(id=${booking.id})}">Edit Booking</a>
+<form method="post" th:action="@{/bookings/{id}(id=${booking.id})}">
+    <input type="hidden" name="_method" value="DELETE"/>
+    <button type="submit">Delete</button>
+</form>
+<a th:href="@{/bookings}">Back to Bookings</a>
+</body>
+</html>

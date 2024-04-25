@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Booking Form</title>
+</head>
+<body>
+<h1>Create a New Booking</h1>
+<form method="post" th:action="@{/bookings}" th:object="${booking}"> <!-- Объект `Booking` -->
+
+    <label for="startDate">Start Date:</label>
+    <input type="date" id="startDate" name="startDate" th:value="*{startDate}"/>
+
+    <label for="endDate">End Date:</label>
+    <input type="date" id="endDate" name="endDate" th:value="*{endDate}"/>
+
+
+    <label for="totalCost">Total Cost:</label>
+    <input type="number" id="totalCost" name="totalCost" th:value="*{totalCost}" step="0.01"/>
+
+    <label for="carId">Car:</label>
+    <select id="carId" name="car.id" th:field="*{car.id}"> <!-- Список машин -->
+        <option th:each="car : ${cars}" th:value="${car.id}" th:text="${car.brand + ' ' + car.model}"></option>
+    </select>
+
+    <label for="customerId">Customer:</label>
+    <select id="customerId" name="customer.id" th:field="*{customer.id}"> <!-- Список клиентов -->
+        <option th:each="customer : ${customers}" th:value="${customer.id}" th:text="${customer.name}"></option>
+    </select>
+
+    <button type="submit">Save</button>
+</form>
+
+<a th:href="@{/bookings}">Cancel</a> <!-- Ссылка для отмены -->
+</body>
+</html>
