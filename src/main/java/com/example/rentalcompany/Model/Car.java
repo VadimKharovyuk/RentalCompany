@@ -22,6 +22,7 @@ public class Car {
     private String brand;
     private int year;
     private BigDecimal rentalPrice;
+
     private String status;
 
     @ManyToOne

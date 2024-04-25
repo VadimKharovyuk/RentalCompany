@@ -63,4 +63,17 @@ public class CarController {
         carService.updateCar(id, car);
         return "redirect:/cars"; // Перенаправление после обновления
     }
+    @GetMapping("/{id}/edit")
+    public String editCar(@PathVariable Long id, Model model) {
+        Car car = carService.getCarById(id);
+        model.addAttribute("car", car); // Убедитесь, что объект 'car' содержит 'rental_price'
+        return "car_edit"; // Имя шаблона
+    }
+
+
+    @PostMapping("/{id}/edit")
+    public String updateCar(@PathVariable Long id, @ModelAttribute Car car) {
+        carService.updateCar(id, car);
+        return "redirect:/cars"; // Перенаправление после обновления
+    }
 }
