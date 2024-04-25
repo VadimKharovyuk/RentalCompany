@@ -3,10 +3,12 @@ package com.example.rentalcompany.Controler;
 import com.example.rentalcompany.Model.Booking;
 import com.example.rentalcompany.Model.Car;
 import com.example.rentalcompany.Model.Customer;
+import com.example.rentalcompany.Model.Insurance;
 import com.example.rentalcompany.Service.BookingService;
 
 import com.example.rentalcompany.Service.CarService;
 import com.example.rentalcompany.Service.CustomerService;
+import com.example.rentalcompany.Service.InsuranceService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +26,7 @@ public class BookingController {
     private final BookingService bookingService;
     private final CarService carService;
     private final CustomerService customerService;
+    private final InsuranceService insuranceService;
 
     @GetMapping
     public String getAllBookings(Model model) {
@@ -58,14 +61,24 @@ public class BookingController {
     // Обработка POST-запроса для сохранения нового бронирования
     @PostMapping
     public String saveBooking(@ModelAttribute("booking") Booking booking, RedirectAttributes redirectAttributes) {
-        bookingService.addBooking(booking); // Сохранение объекта Booking
+        // Сохранение бронирования
+        Booking newBooking = bookingService.addBooking(booking);
+
+        // Если есть страховка, связываем с новым бронированием и сохраняем
+        Insurance insurance = booking.getInsurance();
+        if (insurance != null) {
+            insurance.setBooking(newBooking); // Связь страховки с новым бронированием
+            insuranceService.addInsurance(insurance); // Сохранение страховки
+        }
 
         // Добавление сообщения об успешном сохранении
         redirectAttributes.addFlashAttribute("message", "Booking created successfully!");
 
-        // Перенаправление на страницу списка бронирований или другую страницу
-        return "redirect:/bookings"; // Перенаправление на список бронирований
+        // Перенаправление на список бронирований
+        return "redirect:/bookings";
     }
+
+
 
     @GetMapping("/{id}/edit")
     public String editBookingForm(@PathVariable Long id, Model model) {

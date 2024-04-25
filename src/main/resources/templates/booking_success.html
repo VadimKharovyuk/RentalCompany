@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Booking Success</title>
+</head>
+<body>
+
+<h1>Booking Successful</h1>
+
+<p th:text="${message}">Your booking has been successfully created.</p>
+
+<!-- Кнопки или ссылки для навигации -->
+<a th:href="@{/bookings}">View All Bookings</a> <!-- Ссылка на список всех бронирований -->
+<br>
+<a th:href="@{/}">Return to Home</a> <!-- Ссылка на главную страницу -->
+
+</body>
+</html>

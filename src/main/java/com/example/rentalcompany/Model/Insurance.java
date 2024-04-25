@@ -5,8 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.math.BigDecimal;
 import java.util.Date;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -19,19 +22,19 @@ public class Insurance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String insuranceType; // Тип страховки (например, стандартная, полная)
-    private Date startDate; // Дата начала страховки
-    private Date endDate; // Дата окончания страховки
-    private BigDecimal cost; // Стоимость страховки
+    private String insuranceType;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date startDate;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date endDate;
+
+    private BigDecimal cost;
 
     @ManyToOne
-    @JoinColumn(name = "car_id") // Связь с Car
+    @JoinColumn(name = "car_id")  // Связь с Car
     private Car car;
 
-    @ManyToOne
-    @JoinColumn(name = "booking_id") // Связь с Booking
+    @OneToOne(mappedBy = "insurance")  // Связь с Booking
     private Booking booking;
-
-    // Getters and Setters
 }
-

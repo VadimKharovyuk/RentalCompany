@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Insurance Detail</title>
+</head>
+<body>
+<h1>Insurance Detail</h1>
+
+<table>
+    <tr>
+        <th>ID:</th>
+        <td th:text="${insurance.id}"></td>
+    </tr>
+    <tr>
+        <th>Type:</th>
+        <td th:text="${insurance.insuranceType}"></td>
+    </tr>
+    <tr>
+        <th>Start Date:</th>
+        <td th:text="${insurance.startDate}"></td>
+    </tr>
+    <tr>
+        <th>End Date:</th>
+        <td th:text="${insurance.endDate}"></td>
+    </tr>
+    <tr>
+        <th>Cost:</th>
+        <td th:text="${insurance.cost}"></td>
+    </tr>
+    <tr>
+        <th>Car:</th>
+        <td th:text="${insurance.car?.brand + ' ' + insurance.car?.model}"></td>
+    </tr>
+    <tr>
+        <th>Booking:</th>
+        <td th:text="${insurance.booking?.id}"></td>
+    </tr>
+</table>
+
+<a th:href="@{/insurances}">Back to List</a> <!-- Ссылка для возвращения к списку страховок -->
+</body>
+</html>

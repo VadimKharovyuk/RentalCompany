@@ -1,6 +1,7 @@
 package com.example.rentalcompany.Service;
 
 import com.example.rentalcompany.Model.Booking;
+import com.example.rentalcompany.Model.Insurance;
 import com.example.rentalcompany.Repository.BookingRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -37,9 +38,10 @@ public class BookingService {
         existingBooking.setTotalCost(updatedBooking.getTotalCost());
         existingBooking.setCar(updatedBooking.getCar());
         existingBooking.setCustomer(updatedBooking.getCustomer());
+        existingBooking.setInsurance(updatedBooking.getInsurance());
         return bookingRepository.save(existingBooking);
     }
-    // Дополнительные методы
+
     public List<Booking> getBookingsByDateRange(Date startDate, Date endDate) {
         return bookingRepository.findByStartDateBetween(startDate, endDate);
     }
@@ -53,7 +55,11 @@ public class BookingService {
     }
 
     public BigDecimal calculateTotalCost(Booking booking) {
-        // Пример расчета общей стоимости
-        return booking.getTotalCost();
+        return booking.getTotalCost();  // Пример расчета общей стоимости
+    }
+
+    public Insurance getInsurance(Long bookingId) {
+        Booking booking = getBookingById(bookingId);
+        return booking.getInsurance();  // Возвращает страховку, связанную с этим бронированием
     }
 }

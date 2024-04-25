@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Insurance List</title>
+</head>
+<body>
+<h1>Insurance List</h1>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Type</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Cost</th>
+        <th>Car</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Перебор всех страховок -->
+    <tr th:each="insurance : ${insurances}">
+        <td th:text="${insurance.id}"></td>
+        <td th:text="${insurance.insuranceType}"></td>
+        <td th:text="${insurance.startDate}"></td>
+        <td th:text="${insurance.endDate}"></td>
+        <td th:text="${insurance.cost}"></td>
+        <td th:text="${insurance.car?.brand + ' ' + insurance.car?.model}"></td>
+        <td>
+            <!-- Ссылка на детали страховки -->
+            <a th:href="@{/insurances/{id}(id=${insurance.id})}">View</a>
+            <!-- Ссылка на удаление страховки -->
+            <a th:href="@{/insurances/delete/{id}(id=${insurance.id})}" th:onclick="return confirm('Are you sure you want to delete this insurance?');">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<a th:href="@{/insurances/create}">Create New Insurance</a> <!-- Ссылка на создание новой страховки -->
+</body>
+</html>

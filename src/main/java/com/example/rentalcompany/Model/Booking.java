@@ -9,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.util.Date;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -25,17 +26,23 @@ public class Booking {
     private Date startDate;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date endDate;  // Дата окончания бронирования
-    private BigDecimal totalCost;  // Общая стоимость бронирования
+    private Date endDate;
 
-    @ManyToOne  // Связь многие-к-одному с Car
+    private BigDecimal totalCost;
+
+    @ManyToOne
     @JoinColumn(name = "car_id")
     private Car car;
 
-    @ManyToOne  // Связь многие-к-одному с Customer
+    @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
+    @OneToOne
+    @JoinColumn(name = "insurance_id") // Связь с объектом Insurance
+    private Insurance insurance;
 
+    public Insurance getInsurance() {
+        return insurance;
+    }
 }
-
