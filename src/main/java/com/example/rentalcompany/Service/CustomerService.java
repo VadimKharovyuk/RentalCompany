@@ -35,6 +35,7 @@ public class CustomerService {
         existingCustomer.setContactInfo(updatedCustomer.getContactInfo());
         return customerRepository.save(existingCustomer);
     }
+
     // Дополнительные методы
     public List<Customer> findCustomersByName(String name) {
         return customerRepository.findByNameContaining(name);
@@ -46,5 +47,23 @@ public class CustomerService {
 
     public List<Booking> getCustomerBookings(Long customerId) {
         return customerRepository.findById(customerId).get().getBookings();
+    }
+
+    public void saveOrUpdateCustomer(Customer customer) {
+        if (customer.getId() == null) {
+            // Если идентификатора нет, это новый клиент, добавляем в базу данных
+            customerRepository.save(customer);
+        } else {
+            // Если идентификатор есть, обновляем существующего клиента
+            Customer existingCustomer = customerRepository.findById(customer.getId())
+                    .orElseThrow(() -> new IllegalArgumentException("Customer not found with id: " + customer.getId()));
+
+            // Обновляем данные
+            existingCustomer.setName(customer.getName());
+            existingCustomer.setContactInfo(customer.getContactInfo());
+
+            // Сохраняем изменения
+            customerRepository.save(existingCustomer);
+        }
     }
 }

@@ -16,14 +16,12 @@ public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id;  // Первичный ключ с автоувеличением
 
-    private String name;
-    private String contactInfo;
+    private String name;  // Имя клиента
+    private String contactInfo;  // Контактная информация (email, телефон и т.д.)
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)  // Одно-ко-многим с Booking
     private List<Booking> bookings;
-
-    // Getters and Setters
 }
 

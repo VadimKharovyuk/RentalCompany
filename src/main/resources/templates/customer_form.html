@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Customer Form</title>
+</head>
+<body>
+<h1>Add or Edit Customer</h1>
+<form method="post" th:action="@{/customers}" th:object="${customer}"> <!-- th:object для работы с объектом `Customer` -->
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" th:value="*{name}"/> <!-- th:value должно использоваться корректно -->
+
+    <label for="contactInfo">Contact Info:</label>
+    <input type="text" id="contactInfo" name="contactInfo" th:value="*{contactInfo}"/> <!-- Проверьте, что `contactInfo` существует -->
+
+    <button type="submit">Save</button>
+</form>
+
+<a th:href="@{/customers}">Cancel</a>
+</body>
+</html>

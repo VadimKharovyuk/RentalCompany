@@ -16,18 +16,18 @@ import java.util.Date;
 public class Booking {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)  // Автоматическое увеличение идентификатора
     private Long id;
 
-    private Date startDate;
-    private Date endDate;
-    private BigDecimal totalCost;
+    private Date startDate;  // Дата начала бронирования
+    private Date endDate;    // Дата окончания бронирования
+    private BigDecimal totalCost;  // Общая стоимость бронирования
 
-    @ManyToOne
+    @ManyToOne  // Связь многие-к-одному с Car
     @JoinColumn(name = "car_id")
     private Car car;
 
-    @ManyToOne
+    @ManyToOne  // Связь многие-к-одному с Customer
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
