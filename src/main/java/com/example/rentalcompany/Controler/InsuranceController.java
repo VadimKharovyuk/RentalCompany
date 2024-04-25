@@ -32,11 +32,12 @@ public class InsuranceController {
     @GetMapping("/create")
     public String createBookingForm(Model model) {
         Booking booking = new Booking();  // Создаем новый объект `Booking`
-        Insurance insurance = new Insurance();// Создаем новый объект `Insurance`
+        Insurance insurance = new Insurance();  // Создаем новый объект `Insurance`
         booking.setInsurance(insurance);  // Добавляем `Insurance` в `Booking`
         model.addAttribute("booking", booking);  // Добавляем объект в модель
-        return "booking_form";  // Название шаблона формы
+        return "booking_with_insurance_form";  // Имя шаблона для формы
     }
+
 
 
 

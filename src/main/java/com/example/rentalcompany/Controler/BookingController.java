@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -35,6 +36,7 @@ public class BookingController {
         return "booking_list";  // Имя шаблона в `Thymeleaf`
     }
 
+
     @GetMapping("/{id}")
     public String getBookingById(@PathVariable Long id, Model model) {
         Booking booking = bookingService.getBookingById(id);
@@ -49,6 +51,15 @@ public class BookingController {
         // Получение всех существующих машин и клиентов
         List<Car> cars = carService.getAllCars();
         List<Customer> customers = customerService.getAllCustomers();
+        Booking booking = new Booking();
+        Insurance insurance = new Insurance();
+        booking.setInsurance(insurance);
+
+        // Добавляем список значений для выпадающего списка
+        List<String> bookingNames = Arrays.asList("Business", "Vacation", "Family");  // Пример значений
+        model.addAttribute("bookingNames", bookingNames);
+
+        model.addAttribute("booking", booking);
 
         model.addAttribute("booking", newBooking);
         model.addAttribute("cars", cars); // Список всех машин
@@ -58,25 +69,25 @@ public class BookingController {
     }
 
 
-    // Обработка POST-запроса для сохранения нового бронирования
     @PostMapping
     public String saveBooking(@ModelAttribute("booking") Booking booking, RedirectAttributes redirectAttributes) {
-        // Сохранение бронирования
+        // Save the booking first
         Booking newBooking = bookingService.addBooking(booking);
 
-        // Если есть страховка, связываем с новым бронированием и сохраняем
+        // Check if insurance exists and save it
         Insurance insurance = booking.getInsurance();
         if (insurance != null) {
-            insurance.setBooking(newBooking); // Связь страховки с новым бронированием
-            insuranceService.addInsurance(insurance); // Сохранение страховки
+            insuranceService.addInsurance(insurance);  // Save the insurance
+            insurance.setBooking(newBooking);  // Set the booking reference
         }
 
-        // Добавление сообщения об успешном сохранении
+        // Add a flash message for successful creation
         redirectAttributes.addFlashAttribute("message", "Booking created successfully!");
 
-        // Перенаправление на список бронирований
+        // Redirect to the booking list
         return "redirect:/bookings";
     }
+
 
 
 

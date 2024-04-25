@@ -30,6 +30,10 @@ public class Booking {
 
     private BigDecimal totalCost;
 
+
+    private String bookingName;
+    private Date bookingDate;
+
     @ManyToOne
     @JoinColumn(name = "car_id")
     private Car car;
@@ -38,8 +42,8 @@ public class Booking {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @OneToOne
-    @JoinColumn(name = "insurance_id") // Связь с объектом Insurance
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "insurance_id")
     private Insurance insurance;
 
     public Insurance getInsurance() {

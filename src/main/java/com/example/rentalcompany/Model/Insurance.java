@@ -37,4 +37,8 @@ public class Insurance {
 
     @OneToOne(mappedBy = "insurance")  // Связь с Booking
     private Booking booking;
+
+    @ManyToOne(cascade = CascadeType.PERSIST)  // или CascadeType.ALL, если нужно
+    private Insurance insurance;
+
 }

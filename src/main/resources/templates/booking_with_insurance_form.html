@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Booking Form</title>
+</head>
+<body>
+
+<h1>Create a New Booking with Insurance</h1>
+
+<!-- Форма бронирования -->
+<form method="post" th:action="@{/bookings}" th:object="${booking}"> <!-- Объект `Booking` -->
+
+    <!-- Поля для бронирования -->
+    <label for="bookingName">Booking Name:</label>
+    <select id="bookingName" th:field="*{bookingName}" required>
+        <option value="business">Business</option>  <!-- Пример значений -->
+        <option value="vacation">Vacation</option>
+        <option value="family">Family</option>
+    </select>
+
+    <label for="bookingDate">Booking Date:</label>
+    <input type="date" id="bookingDate" th:field="*{bookingDate}" required/>
+
+    <!-- Поля для страховки -->
+    <h2>Insurance Details</h2>
+
+    <label for="insuranceType">Insurance Type:</label>
+    <select id="insuranceType" th:field="*{insurance.insuranceType}" required>
+        <option value="standard">Standard</option>
+        <option value="full">Full</option>
+    </select>
+
+    <!-- Другие поля формы бронирования и страховки -->
+    <button type="submit">Save</button>
+    <a th:href="@{/bookings}">Cancel</a> <!-- Ссылка для отмены -->
+</form>
+
+</body>
+</html>

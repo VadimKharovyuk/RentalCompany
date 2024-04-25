@@ -2,14 +2,36 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Booking List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-<h1>Booking List</h1>
-<ul>
-    <li th:each="booking : ${bookings}">
-        <a th:href="@{/bookings/{id}(id=${booking.id})}" th:text="${booking.startDate + ' to ' + booking.endDate}"></a>
-    </li>
-</ul>
-<a th:href="@{/bookings/create}">Create New Booking</a>
+<div class="container">
+    <h1>Booking List</h1>
+
+    <ul th:if="${!#lists.isEmpty(bookings)}">
+        <li th:each="booking : ${bookings}">
+            <a th:href="@{/bookings/{id}(id=${booking.id})}">
+                Booking from <span th:text="${booking.startDate}"></span> to <span th:text="${booking.endDate}"></span>
+            </a>
+
+            <!-- Проверка на null -->
+            <span th:if="${booking.customer != null}">
+                - <span th:text="${booking.customer.name}"></span>
+            </span>
+
+            <!-- Добавьте другие поля только при наличии customer -->
+            <span th:if="${booking.customer == null}">
+                - No customer data
+            </span>
+        </li>
+    </ul>
+
+    <a th:href="@{/bookings/create}" class="btn btn-primary">Create New Booking</a>
+    <a href="/" class="btn btn-secondary">Back to Home</a>
+</div>
+
+<!-- Добавьте скрипты Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
