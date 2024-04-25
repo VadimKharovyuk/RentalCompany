@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Car Detail</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+</head>
+<body>
+<header>
+    <h1 th:text="${car.brand + ' ' + car.model}">Car Details</h1>
+</header>
+
+<main>
+    <p><strong>Brand:</strong> <span th:text="${car.brand}"></span></p>
+    <p><strong>Model:</strong> <span th:text="${car.model}"></span></p>
+    <p><strong>Rental Price:</strong> <span th:text="${car.rentalPrice}"></span></p>
+    <p><strong>Status:</strong> <span th:text="${car.status}"></span></p>
+    <p><strong>Year:</strong> <span th:text="${car.year}"></span></p>
+
+    <a th:href="@{/cars/{id}/edit(id=${car.id})}">Edit Car</a>
+    <a th:href="@{/cars}">Back to Car List</a>
+</main>
+
+<footer>
+    <p>&copy; 2024 Rental Company. All rights reserved.</p>
+</footer>
+</body>
+</html>

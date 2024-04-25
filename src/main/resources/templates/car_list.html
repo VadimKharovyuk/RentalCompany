@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Car List</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+</head>
+<body>
+<header>
+    <h1>Car List</h1>
+</header>
+
+<main>
+    <a th:href="@{/cars/new}">Add New Car</a>
+    <h2>All Cars</h2>
+    <ul>
+        <li th:each="car : ${cars}">
+            <a th:href="@{/cars/{id}(id=${car.id})}" th:text="${car.brand + ' ' + car.model}">Car Detail</a>
+        </li>
+    </ul>
+</main>
+
+<footer>
+    <p>&copy; 2024 Rental Company. All rights reserved.</p>
+</footer>
+</body>
+</html>

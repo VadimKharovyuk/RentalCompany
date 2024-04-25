@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Car</title>
+</head>
+<body>
+<header>
+    <h1>Add New Car</h1>
+</header>
+
+<main>
+    <form th:action="@{/cars}" th:object="${car}" method="post">
+        <div>
+            <label>Brand:</label>
+            <input type="text" th:field="*{brand}" required /> <!-- Имя поля должно совпадать с свойством класса Car -->
+        </div>
+        <div>
+            <label>Model:</label>
+            <input type="text" th:field="*{model}" required />
+        </div>
+        <!-- Другие поля -->
+        <button type="submit">Add Car</button>
+    </form>
+</main>
+</body>
+</html>
