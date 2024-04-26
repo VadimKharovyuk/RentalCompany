@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -16,12 +17,11 @@ public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;  // Первичный ключ с автоувеличением
+    private Long id;
 
-    private String name;  // Имя клиента
-    private String contactInfo;  // Контактная информация (email, телефон и т.д.)
+    private String name;
+    private String contactInfo;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)  // Одно-ко-многим с Booking
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true) // Удаление при удалении Customer
     private List<Booking> bookings;
 }
-

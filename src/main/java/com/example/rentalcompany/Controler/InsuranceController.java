@@ -1,7 +1,10 @@
 package com.example.rentalcompany.Controler;
 
 import com.example.rentalcompany.Model.Booking;
+import com.example.rentalcompany.Model.Car;
+import com.example.rentalcompany.Model.Customer;
 import com.example.rentalcompany.Model.Insurance;
+import com.example.rentalcompany.Service.BookingService;
 import com.example.rentalcompany.Service.CarService;
 import com.example.rentalcompany.Service.CustomerService;
 import com.example.rentalcompany.Service.InsuranceService;
@@ -9,12 +12,21 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping("/insurances")
 @AllArgsConstructor
 public class InsuranceController {
+    private final BookingService bookingService;
+    private final CarService carService;
+    private final CustomerService customerService;
     private final InsuranceService insuranceService;
+
+
 
 
     @GetMapping
@@ -29,17 +41,39 @@ public class InsuranceController {
         return "insurance_detail";  // Имя шаблона для отображения деталей страховки
     }
 
-    @GetMapping("/create")
+    @GetMapping("/create") // Обрабатывает GET-запрос по маршруту "/create"
     public String createBookingForm(Model model) {
-        Booking booking = new Booking();  // Создаем новый объект `Booking`
-        Insurance insurance = new Insurance();  // Создаем новый объект `Insurance`
-        booking.setInsurance(insurance);  // Добавляем `Insurance` в `Booking`
-        model.addAttribute("booking", booking);  // Добавляем объект в модель
-        return "booking_with_insurance_form";  // Имя шаблона для формы
+        Booking booking = new Booking(); // Новый объект `Booking`
+        Insurance insurance = new Insurance(); // Новый объект `Insurance`
+        booking.setInsurance(insurance); // Связываем страховку с бронированием
+
+        List<Car> cars = carService.getAllCars(); // Получаем список машин
+        List<Customer> customers = customerService.getAllCustomers(); // Получаем список клиентов
+
+        // Добавляем данные в модель
+        model.addAttribute("booking", booking);
+        model.addAttribute("cars", cars);
+        model.addAttribute("customers", customers);
+
+        // Возвращаем имя шаблона
+        return "booking_with_insurance_form"; // Имя HTML-шаблона
     }
+    @PostMapping("/create")
+    public String createBooking(
+            @ModelAttribute("booking") Booking booking,
+            RedirectAttributes redirectAttributes
+    ) {
+        // Установить дату бронирования на текущую дату
+        booking.setBookingDate(new Date());
 
+        // Сохранение бронирования
+        bookingService.addBooking(booking);
 
+        // Перенаправление с сообщением об успехе
+        redirectAttributes.addFlashAttribute("message", "Booking created successfully!");
 
+        return "redirect:/bookings"; // Перенаправление после успешного сохранения
+    }
 
 
     @PostMapping

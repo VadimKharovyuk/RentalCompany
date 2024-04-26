@@ -30,7 +30,6 @@ public class Booking {
 
     private BigDecimal totalCost;
 
-
     private String bookingName;
     private Date bookingDate;
 
@@ -39,16 +38,11 @@ public class Booking {
     private Car car;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
+    @JoinColumn(name = "customer_id", foreignKey = @ForeignKey(name = "fk_customer_booking", foreignKeyDefinition = "ON DELETE CASCADE"))
     private Customer customer;
 
-    @OneToOne(cascade = CascadeType.ALL) // Каскадное сохранение
-    @JoinColumn(name = "insurance_id")
+    @OneToOne(cascade = CascadeType.ALL) // Каскадное удаление при удалении Booking
+    @JoinColumn(name = "insurance_id", foreignKey = @ForeignKey(name = "fk_insurance_booking", foreignKeyDefinition = "ON DELETE CASCADE"))
     private Insurance insurance;
 
-
-
-    public Insurance getInsurance() {
-        return insurance;
-    }
 }

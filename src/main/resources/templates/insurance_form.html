@@ -5,20 +5,21 @@
     <!-- Подключение Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-<header class="bg-primary text-white p-3 d-flex justify-content-between align-items-center"> <!-- Синий фон и белый текст -->
+<body>
+<header class="bg-primary text-white p-3 d-flex justify-content-between align-items-center">
     <h1>Welcome to the Rental Company</h1>
     <nav>
         <ul class="nav"> <!-- Стилизация навигации -->
             <li class="nav-item"><a class="nav-link text-white" th:href="@{/}">Home</a></li>
-            <li class="nav-item"><a class="nav-link text-white" th:href="@{/cars/cars}">Cars</a></li>
+            <li class="nav-item"><a class="nav-link text-white" th:href="@{/cars}">Cars</a></li>
             <li class="nav-item"><a class="nav-link text-white" th:href="@{/bookings}">Bookings</a></li>
             <li class="nav-item"><a class="nav-link text-white" th:href="@{/customers}">Customers</a></li>
             <li class="nav-item"><a class="nav-link text-white" th:href="@{/payments}">Payments</a></li>
-            <li class="nav-item"><a class="nav-link text-white" th:href="@{/insurances}">insurances</a></li>
+            <li class="nav-item"><a class="nav-link text-white" th:href="@{/insurances}">Insurances</a></li>
         </ul>
     </nav>
 </header>
-<body>
+
 <div class="container mt-5"> <!-- Добавление контейнера для отступов -->
     <div class="card"> <!-- Карточка Bootstrap -->
         <div class="card-header"> <!-- Заголовок карточки -->
@@ -26,17 +27,45 @@
         </div>
         <div class="card-body"> <!-- Основная часть карточки -->
             <!-- Форма бронирования -->
-            <form method="post" th:action="@{/insurances}" th:object="${booking}"> <!-- Объект `Booking` -->
+            <form method="post" th:action="@{/bookings/create}" th:object="${booking}"> <!-- Объект `Booking` -->
 
                 <!-- Поля для бронирования -->
-                <div class="form-group"> <!-- Группа формы -->
+                <div class="form-group">
                     <label for="bookingName">Booking Name:</label>
-                    <input type="text" id="bookingName" th:field="*{bookingName}" class="form-control" required/> <!-- Bootstrap стиль -->
+                    <select id="bookingName" th:field="*{bookingName}" class="form-control" required>
+                        <option th:each="name : ${bookingNames}" th:value="${name}" th:text="${name}"></option>
+                    </select>
                 </div>
 
                 <div class="form-group">
                     <label for="bookingDate">Booking Date:</label>
-                    <input type="date" id="bookingDate" th:field="*{bookingDate}" class="form-control" required/> <!-- Bootstrap стиль -->
+                    <input type="date" id="bookingDate" th:field="*{bookingDate}" class="form-control" required/>
+                </div>
+
+                <div class="form-group">
+                    <label for="startDate">Start Date:</label>
+                    <input type="date" id="startDate" th:field="*{startDate}" class="form-control" required/>
+                </div>
+
+                <div class="form-group">
+                    <label for="endDate">End Date:</label>
+                    <input type="date" id="endDate" th:field="*{endDate}" class="form-control" required/>
+                </div>
+
+                <!-- Выпадающий список для выбора машины -->
+                <div class="form-group">
+                    <label for="carId">Select Car:</label>
+                    <select id="carId" th:field="*{car.id}" class="form-control" required>
+                        <option th:each="car : ${cars}" th:value="${car.id}" th:text="${car.brand + ' ' + car.model}"></option>
+                    </select>
+                </div>
+
+                <!-- Выпадающий список для выбора клиента -->
+                <div class="form-group">
+                    <label for="customerId">Select Customer:</label>
+                    <select id="customerId" th:field="*{customer.id}" class="form-control" required>
+                        <option th:each="customer : ${customers}" th:value="${customer.id}" th:text="${customer.name}"></option>
+                    </select>
                 </div>
 
                 <!-- Поля для страховки -->
@@ -62,12 +91,12 @@
 
                 <div class="form-group">
                     <label for="insuranceCost">Insurance Cost:</label>
-                    <input type="number" id="insuranceCost" th:field="*{insurance.cost}" class="form-control" step="0.01" min="0" required/>
+                    <input type="number" id="insuranceCost" th:field="*{insurance.cost}" class="form-control" step="0.01" required/>
                 </div>
 
                 <!-- Кнопки управления -->
-                <button type="submit" class="btn btn-primary">Save</button> <!-- Кнопка для сохранения -->
-                <a th:href="@{/bookings}" class="btn btn-secondary">Cancel</a> <!-- Кнопка для отмены -->
+                <button type="submit" class="btn btn-primary">Save</button>
+                <a th:href="@{/bookings}" class="btn btn-secondary">Cancel</a>
             </form>
         </div>
     </div>

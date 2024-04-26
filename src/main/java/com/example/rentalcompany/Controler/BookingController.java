@@ -44,28 +44,45 @@ public class BookingController {
         return "booking_detail";  // Имя шаблона
     }
 
+//    @GetMapping("/create")
+//    public String createBookingForm(Model model) {
+//        Booking newBooking = new Booking();
+//
+//        // Получение всех существующих машин и клиентов
+//        List<Car> cars = carService.getAllCars();
+//        List<Customer> customers = customerService.getAllCustomers();
+//        Booking booking = new Booking();
+//        Insurance insurance = new Insurance();
+//        booking.setInsurance(insurance);
+//
+//        // Добавляем список значений для выпадающего списка
+//        List<String> bookingNames = Arrays.asList("Business", "Vacation", "Family");  // Пример значений
+//        model.addAttribute("bookingNames", bookingNames);
+//
+//        model.addAttribute("booking", booking);
+//
+//        model.addAttribute("booking", newBooking);
+//        model.addAttribute("cars", cars); // Список всех машин
+//        model.addAttribute("customers", customers); // Список всех клиентов
+//
+//        return "insurance_form";  // Имя шаблона для формы создания
+//    }
     @GetMapping("/create")
     public String createBookingForm(Model model) {
-        Booking newBooking = new Booking();
+        Booking booking = new Booking();  // Новый объект бронирования
+        booking.setInsurance(new Insurance());  // Добавляем страховку
 
-        // Получение всех существующих машин и клиентов
-        List<Car> cars = carService.getAllCars();
-        List<Customer> customers = customerService.getAllCustomers();
-        Booking booking = new Booking();
-        Insurance insurance = new Insurance();
-        booking.setInsurance(insurance);
+        List<String> bookingNames = Arrays.asList("Business", "Vacation", "Family");  // Пример возможных значений для имени бронирования
+        List<Car> cars = carService.getAllCars();  // Получаем список машин
+        List<Customer> customers = customerService.getAllCustomers();  // Получаем список клиентов
 
-        // Добавляем список значений для выпадающего списка
-        List<String> bookingNames = Arrays.asList("Business", "Vacation", "Family");  // Пример значений
+        // Добавляем объекты в модель
+        model.addAttribute("booking", booking);
+        model.addAttribute("cars", cars);
+        model.addAttribute("customers", customers);
         model.addAttribute("bookingNames", bookingNames);
 
-        model.addAttribute("booking", booking);
-
-        model.addAttribute("booking", newBooking);
-        model.addAttribute("cars", cars); // Список всех машин
-        model.addAttribute("customers", customers); // Список всех клиентов
-
-        return "booking_form";  // Имя шаблона для формы создания
+        return "insurance_form";  // Имя шаблона для формы
     }
 
 
@@ -111,5 +128,14 @@ public class BookingController {
     public String deleteBooking(@PathVariable Long id) {
         bookingService.deleteBooking(id);
         return "redirect:/bookings";  // Перенаправление после удаления
+    }
+    @PostMapping("/create")
+    public String createBooking(@ModelAttribute("booking") Booking booking) {
+        bookingService.addBooking(booking);  // Сохраняем бронирование
+        if (booking.getInsurance() != null) {
+            booking.getInsurance().setBooking(booking);  // Связь страховки с бронированием
+        }
+
+        return "redirect:/bookings";  // Перенаправляем после сохранения
     }
 }
