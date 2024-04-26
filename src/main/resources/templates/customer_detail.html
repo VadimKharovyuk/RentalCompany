@@ -2,11 +2,26 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Customer Detail</title>
+    <!-- Подключение Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-<h1 th:text="${customer.name}">Customer Name</h1>
-<p>Contact Info: <span th:text="${customer.contactInfo}">Unknown</span></p>
+<div class="container my-5"> <!-- Отступы для контейнера -->
+    <div class="card"> <!-- Используем карточку Bootstrap -->
+        <div class="card-header">
+            <h1 th:text="${customer.name}">Customer Name</h1> <!-- Имя клиента -->
+        </div>
+        <div class="card-body">
+            <p>Contact Info: <span th:text="${customer.contactInfo}">Unknown</span></p> <!-- Информация о контакте -->
 
-<a th:href="@{/customers}">Back to Customer List</a>
+            <!-- Кнопка для возвращения к списку клиентов -->
+            <a th:href="@{/customers}" class="btn btn-secondary">Back to Customer List</a>
+        </div>
+    </div>
+</div>
+
+<!-- Подключение Bootstrap JavaScript и jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

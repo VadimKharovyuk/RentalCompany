@@ -2,14 +2,26 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Customer List</title>
+    <!-- Подключение Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-<h1>Customer List</h1>
-<ul>
-    <li th:each="customer : ${customers}">
-        <a th:href="@{/customers/{id}(id=${customer.id})}" th:text="${customer.name}">Customer Detail</a>
-    </li>
-</ul>
-<a th:href="@{/customers/new}">Add New Customer</a>
+<div class="container">
+    <h1 class="my-4">Customer List</h1> <!-- Используем отступы Bootstrap -->
+
+    <!-- Список клиентов -->
+    <ul class="list-group">
+        <li th:each="customer : ${customers}" class="list-group-item">
+            <a th:href="@{/customers/{id}(id=${customer.id})}" th:text="${customer.name}">Customer Detail</a>
+        </li>
+    </ul>
+
+    <!-- Кнопка добавления нового клиента -->
+    <a th:href="@{/customers/new}" class="btn btn-primary my-3">Add New Customer</a> <!-- Добавляем Bootstrap кнопки -->
+</div>
+
+<!-- Подключение Bootstrap JavaScript и jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

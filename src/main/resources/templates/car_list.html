@@ -2,25 +2,39 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Car List</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> <!-- Подключение Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css"> <!-- Ваши собственные стили -->
 </head>
 <body>
-<header>
+
+<!-- Заголовок страницы -->
+<header class="bg-primary text-white p-3"> <!-- Синий фон и белый текст -->
     <h1>Car List</h1>
 </header>
 
-<main>
-    <a th:href="@{/cars/new}">Add New Car</a>
-    <h2>All Cars</h2>
-    <ul>
-        <li th:each="car : ${cars}">
+<!-- Основной контент -->
+<main class="container mt-4"> <!-- Использование контейнера Bootstrap -->
+    <div class="d-flex justify-content-between"> <!-- Flexbox для управления позиционированием -->
+        <h2>All Cars</h2>
+        <a class="btn btn-primary" th:href="@{/cars/new}">Add New Car</a> <!-- Стилизованная кнопка -->
+    </div>
+
+    <!-- Список всех машин -->
+    <ul class="list-group"> <!-- Использование Bootstrap для создания списка -->
+        <li th:each="car : ${cars}" class="list-group-item">
             <a th:href="@{/cars/{id}(id=${car.id})}" th:text="${car.brand + ' ' + car.model}">Car Detail</a>
         </li>
     </ul>
 </main>
 
-<footer>
+<!-- Футер -->
+<footer class="bg-dark text-white text-center p-3"> <!-- Закрепленный футер с тенью -->
     <p>&copy; 2024 Rental Company. All rights reserved.</p>
 </footer>
+
+<!-- Подключение Bootstrap JS и jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 </html>

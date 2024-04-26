@@ -2,19 +2,30 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Customer Form</title>
+    <!-- Подключение Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-<h1>Add or Edit Customer</h1>
-<form method="post" th:action="@{/customers}" th:object="${customer}"> <!-- th:object для работы с объектом `Customer` -->
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" th:value="*{name}"/> <!-- th:value должно использоваться корректно -->
+<div class="container mt-5"> <!-- Добавление отступов -->
+    <div class="card"> <!-- Карточка Bootstrap -->
+        <div class="card-header">
+            <h1>Add or Edit Customer</h1> <!-- Заголовок формы -->
+        </div>
+        <div class="card-body">
+            <form method="post" th:action="@{/customers}" th:object="${customer}"> <!-- th:object для работы с объектом `Customer` -->
+                <!-- Используем строки Bootstrap для позиционирования -->
+                <div class="form-group"> <!-- Группа для поля ввода -->
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" th:field="*{name}" class="form-control" required/> <!-- Добавление классов Bootstrap -->
+                </div>
 
-    <label for="contactInfo">Contact Info:</label>
-    <input type="text" id="contactInfo" name="contactInfo" th:value="*{contactInfo}"/> <!-- Проверьте, что `contactInfo` существует -->
+                <div class="form-group">
+                    <label for="contactInfo">Contact Info:</label>
+                    <input type="text" id="contactInfo" name="contactInfo" th:field="*{contactInfo}" class="form-control" required/>
+                </div>
 
-    <button type="submit">Save</button>
-</form>
-
-<a th:href="@{/customers}">Cancel</a>
-</body>
-</html>
+                <button type="submit" class="btn btn-primary">Save</button> <!-- Кнопка Bootstrap -->
+                <a th:href="@{/customers}" class="btn btn-secondary">Cancel</a> <!-- Кнопка для отмены -->
+            </form>
+        </div>
+    </div>

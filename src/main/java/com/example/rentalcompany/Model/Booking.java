@@ -42,9 +42,11 @@ public class Booking {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.ALL) // Каскадное сохранение
     @JoinColumn(name = "insurance_id")
     private Insurance insurance;
+
+
 
     public Insurance getInsurance() {
         return insurance;
