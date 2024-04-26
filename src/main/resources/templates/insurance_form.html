@@ -5,6 +5,19 @@
     <!-- Подключение Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
+<header class="bg-primary text-white p-3 d-flex justify-content-between align-items-center"> <!-- Синий фон и белый текст -->
+    <h1>Welcome to the Rental Company</h1>
+    <nav>
+        <ul class="nav"> <!-- Стилизация навигации -->
+            <li class="nav-item"><a class="nav-link text-white" th:href="@{/}">Home</a></li>
+            <li class="nav-item"><a class="nav-link text-white" th:href="@{/cars/cars}">Cars</a></li>
+            <li class="nav-item"><a class="nav-link text-white" th:href="@{/bookings}">Bookings</a></li>
+            <li class="nav-item"><a class="nav-link text-white" th:href="@{/customers}">Customers</a></li>
+            <li class="nav-item"><a class="nav-link text-white" th:href="@{/payments}">Payments</a></li>
+            <li class="nav-item"><a class="nav-link text-white" th:href="@{/insurances}">insurances</a></li>
+        </ul>
+    </nav>
+</header>
 <body>
 <div class="container mt-5"> <!-- Добавление контейнера для отступов -->
     <div class="card"> <!-- Карточка Bootstrap -->

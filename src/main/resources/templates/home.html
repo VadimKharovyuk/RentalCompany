@@ -11,10 +11,12 @@
     <h1>Welcome to the Rental Company</h1>
     <nav>
         <ul class="nav"> <!-- Стилизация навигации -->
-            <li class="nav-item"><a class="nav-link text-white" th:href="@{/cars}">Cars</a></li>
+            <li class="nav-item"><a class="nav-link text-white" th:href="@{/}">Home</a></li>
+            <li class="nav-item"><a class="nav-link text-white" th:href="@{/cars/cars}">Cars</a></li>
             <li class="nav-item"><a class="nav-link text-white" th:href="@{/bookings}">Bookings</a></li>
             <li class="nav-item"><a class="nav-link text-white" th:href="@{/customers}">Customers</a></li>
             <li class="nav-item"><a class="nav-link text-white" th:href="@{/payments}">Payments</a></li>
+            <li class="nav-item"><a class="nav-link text-white" th:href="@{/insurances}">insurances</a></li>
         </ul>
     </nav>
 </header>
@@ -45,14 +47,14 @@
     </div>
 
     <!-- Стилизация секции для клиентов -->
-    <div class="card mb-4">
-        <div class="card-header">Customers</div>
-        <div class="card-body">
-            <ul>
-                <li th:each="customer : ${customers}" th:text="${customer.name}"></li>
-            </ul>
-        </div>
-    </div>
+<!--    <div class="card mb-4">-->
+<!--        <div class="card-header">Customers</div>-->
+<!--        <div class="card-body">-->
+<!--            <ul>-->
+<!--                <li th:each="customer : ${customers}" th:text="${customer.name}"></li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--    </div>-->
 
     <!-- Стилизация секции для платежей -->
     <div class="card mb-4">
