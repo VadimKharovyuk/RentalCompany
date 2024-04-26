@@ -13,20 +13,27 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "payments") // Название таблицы в базе данных
+@Table(name = "payments")
 public class Payment {
 
+    public enum PaymentType { // Перечисление типов платежей
+        CASH,
+        CREDIT_CARD,
+        DEBIT_CARD,
+        ONLINE_PAYMENT
+    }
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Автоматическое увеличение идентификатора
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private BigDecimal amount; // Сумма платежа
     private Date paymentDate;  // Дата платежа
-    private String paymentType; // Тип платежа (например, кредитная карта, наличные)
 
-    @ManyToOne(fetch = FetchType.LAZY) // Связь с `Booking`
-    @JoinColumn(name = "booking_id") // Указание столбца, по которому происходит связь
+    @Enumerated(EnumType.STRING) // Указывает, что это перечисление
+    private PaymentType paymentType; // Тип платежа
+
+    @ManyToOne
+    @JoinColumn(name = "booking_id") // Связь с Booking
     private Booking booking;
-
-    // Конструкторы, геттеры и сеттеры уже созданы благодаря аннотациям Lombok
 }

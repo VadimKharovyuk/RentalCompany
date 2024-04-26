@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Payment Detail</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> <!-- Подключение Bootstrap -->
+</head>
+<nav>
+    <ul class="nav"> <!-- Стилизация навигации -->
+        <li class="nav-item"><a class="nav-link text-white" th:href="@{/}">Home</a></li>
+        <li class="nav-item"><a class="nav-link text-white" th:href="@{/cars/cars}">Cars</a></li>
+        <li class="nav-item"><a class="nav-link text-white" th:href="@{/bookings}">Bookings</a></li>
+        <li class="nav-item"><a class="nav-link text-white" th:href="@{/customers}">Customers</a></li>
+        <li class="nav-item"><a class="nav-link text-white" th:href="@{/payments}">Payments</a></li>
+        <li class="nav-item"><a class="nav-link text-white" th:href="@{/insurances}">insurances</a></li>
+    </ul>
+</nav>
+<body>
+<div class="container mt-5"> <!-- Контейнер для отступа -->
+    <h1>Payment Detail</h1> <!-- Заголовок -->
+    <ul class="list-group"> <!-- Используем список Bootstrap -->
+        <li class="list-group-item"><strong>Amount:</strong> <span th:text="${payment.amount}"></span></li>
+        <li class="list-group-item"><strong>Payment Date:</strong> <span th:text="${payment.paymentDate}"></span></li>
+        <li class="list-group-item"><strong>Payment Type:</strong> <span th:text="${payment.paymentType}"></span></li>
+        <li class="list-group-item"><strong>Booking:</strong> <span th:text="${payment.booking?.bookingName}"></span></li>
+    </ul>
+
+    <a th:href="@{/payments}" class="btn btn-secondary">Back to Payments</a> <!-- Кнопка возврата -->
+</div>
+
+<!-- Подключение необходимых скриптов Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

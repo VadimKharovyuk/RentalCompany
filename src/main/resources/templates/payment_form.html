@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Create Payment</title>
+  <!-- Подключение Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<header class="bg-primary text-white p-3 d-flex justify-content-between align-items-center"> <!-- Синий фон -->
+  <h1>Rental Company</h1>
+  <nav>
+    <ul class="nav"> <!-- Секция навигации -->
+      <li class="nav-item"><a class="nav-link text-white" th:href="@{/}">Home</a></li>
+      <li class="nav-item"><a class="nav-link text-white" th:href="@{/cars}">Cars</a></li>
+      <li class="nav-item"><a class="nav-link text-white" th:href="@{/bookings}">Bookings</a></li>
+      <li class="nav-item"><a class="nav-link text-white" th:href="@{/customers}">Customers</a></li>
+      <li class="nav-item"><a class="nav-link text-white" th:href="@{/payments}">Payments</a></li>
+      <li class="nav-item"><a class="nav-link text-white" th:href="@{/insurances}">Insurances</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="container mt-5"> <!-- Контейнер для отступов -->
+  <div class="card"> <!-- Используем карточку Bootstrap -->
+    <div class="card-header">
+      <h1>Create Payment</h1> <!-- Заголовок: Создание платежа -->
+    </div>
+    <div class="card-body"> <!-- Основная часть карточки -->
+      <form method="post" th:action="@{/payments}" th:object="${payment}"> <!-- Объект `Payment` -->
+        <div class="form-group"> <!-- Группа ввода -->
+          <label for="amount">Amount:</label>
+          <input type="number" id="amount" th:field="*{amount}" class="form-control" step="0.01" required/>
+        </div>
+
+        <div class="form-group">
+          <label for="paymentDate">Payment Date:</label>
+          <input type="date" id="paymentDate" th:field="*{paymentDate}" class="form-control" required/>
+        </div>
+
+        <!-- Выпадающий список для выбора типа платежа -->
+        <div class="form-group">
+          <label for="paymentType">Payment Type:</label>
+          <select id="paymentType" th:field="*{paymentType}" class="form-control" required>
+            <!-- Цикл по списку типов платежей -->
+            <option th:each="type : ${paymentTypes}" th:value="${type.name()}" th:text="${type.name()}"></option>
+          </select>
+        </div>
+
+        <!-- Выпадающий список для бронирования -->
+        <div class="form-group">
+          <label for="bookingId">Select Booking:</label>
+          <select id="bookingId" th:field="*{booking.id}" class="form-control" required>
+            <!-- Цикл по бронированиям -->
+            <option th:each="booking : ${bookings}" th:value="${booking.id}" th:text="${booking.bookingName}"></option>
+          </select>
+        </div>
+
+        <!-- Кнопки управления -->
+        <button type="submit" class="btn btn-primary">Save</button> <!-- Кнопка сохранения -->
+        <a th:href="@{/payments}" class="btn btn-secondary">Cancel</a> <!-- Кнопка отмены -->
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Подключение необходимых скриптов Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

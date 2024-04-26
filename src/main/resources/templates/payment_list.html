@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Payment List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> <!-- Подключение Bootstrap -->
+</head>
+<nav>
+    <ul class="nav"> <!-- Стилизация навигации -->
+        <li class="nav-item"><a class="nav-link text-white" th:href="@{/}">Home</a></li>
+        <li class="nav-item"><a class="nav-link text-white" th:href="@{/cars/cars}">Cars</a></li>
+        <li class="nav-item"><a class="nav-link text-white" th:href="@{/bookings}">Bookings</a></li>
+        <li class="nav-item"><a class="nav-link text-white" th:href="@{/customers}">Customers</a></li>
+        <li class="nav-item"><a class="nav-link text-white" th:href="@{/payments}">Payments</a></li>
+        <li class="nav-item"><a class="nav-link text-white" th:href="@{/insurances}">insurances</a></li>
+    </ul>
+</nav>
+<body>
+<div class="container mt-5"> <!-- Контейнер Bootstrap -->
+    <h1>Payments</h1> <!-- Заголовок страницы -->
+    <table class="table table-striped"> <!-- Таблица с классами Bootstrap -->
+        <thead class="thead-dark"> <!-- Заголовок таблицы -->
+        <tr>
+            <th>Amount</th>
+            <th>Payment Date</th>
+            <th>Payment Type</th>
+            <th>Booking</th>
+            <th>Actions</th> <!-- Действия -->
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Перебор всех платежей -->
+        <tr th:each="payment : ${payments}">
+            <td th:text="${payment.amount}"></td>
+            <td th:text="${payment.paymentDate}"></td>
+            <td th:text="${payment.paymentType}"></td>
+            <td th:text="${payment.booking?.bookingName}"></td>
+            <td>
+                <!-- Ссылка на детали платежа -->
+                <a th:href="@{/payments/{id}(id=${payment.id})}" class="btn btn-info btn-sm">View</a>
+                <!-- Ссылка на редактирование -->
+                <a th:href="@{/payments/{id}/edit(id=${payment.id})}" class="btn btn-warning btn-sm">Edit</a>
+                <!-- Ссылка на удаление -->
+                <form th:action="@{/payments/delete/{id}(id=${payment.id})}" method="post"
+                      onsubmit="return confirm('Are you sure you want to delete this payment?');">
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Ссылка на создание нового платежа -->
+    <a th:href="@{/payments/create}" class="btn btn-success">Create New Payment</a>
+</div>
+
+<!-- Подключение необходимых скриптов Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
