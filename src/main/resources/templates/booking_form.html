@@ -2,34 +2,55 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Booking Form</title>
+    <!-- Подключение Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-<h1>Create a New Booking</h1>
-<form method="post" th:action="@{/bookings}" th:object="${booking}"> <!-- Объект `Booking` -->
 
-    <label for="startDate">Start Date:</label>
-    <input type="date" id="startDate" name="startDate" th:value="*{startDate}"/>
+<div class="container mt-4">
+    <h1>Create a New Booking</h1>
+    <form method="post" th:action="@{/bookings}" th:object="${booking}" class="form-horizontal"> <!-- Объект `Booking` -->
 
-    <label for="endDate">End Date:</label>
-    <input type="date" id="endDate" name="endDate" th:value="*{endDate}"/>
+        <div class="form-group">
+            <label for="startDate" class="col-form-label">Start Date:</label>
+            <input type="date" id="startDate" name="startDate" th:field="*{startDate}" class="form-control"/>
+        </div>
 
+        <div class="form-group">
+            <label for="endDate" class="col-form-label">End Date:</label>
+            <input type="date" id="endDate" name="endDate" th:field="*{endDate}" class="form-control"/>
+        </div>
 
-    <label for="totalCost">Total Cost:</label>
-    <input type="number" id="totalCost" name="totalCost" th:value="*{totalCost}" step="0.01"/>
+        <div class="form-group">
+            <label for="totalCost" class="col-form-label">Total Cost:</label>
+            <input type="number" id="totalCost" name="totalCost" th:field="*{totalCost}" class="form-control" step="0.01"/>
+        </div>
 
-    <label for="carId">Car:</label>
-    <select id="carId" name="car.id" th:field="*{car.id}"> <!-- Список машин -->
-        <option th:each="car : ${cars}" th:value="${car.id}" th:text="${car.brand + ' ' + car.model}"></option>
-    </select>
+        <div class="form-group">
+            <label for="carId" class="col-form-label">Car:</label>
+            <select id="carId" name="car.id" th:field="*{car.id}" class="form-control"> <!-- Список машин -->
+                <option th:each="car : ${cars}" th:value="${car.id}" th:text="${car.brand + ' ' + car.model}"></option>
+            </select>
+        </div>
 
-    <label for="customerId">Customer:</label>
-    <select id="customerId" name="customer.id" th:field="*{customer.id}"> <!-- Список клиентов -->
-        <option th:each="customer : ${customers}" th:value="${customer.id}" th:text="${customer.name}"></option>
-    </select>
+        <div class="form-group">
+            <label for="customerId" class="col-form-label">Customer:</label>
+            <select id="customerId" name="customer.id" th:field="*{customer.id}" class="form-control"> <!-- Список клиентов -->
+                <option th:each="customer : ${customers}" th:value="${customer.id}" th:text="${customer.name}"></option>
+            </select>
+        </div>
 
-    <button type="submit">Save</button>
-</form>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a th:href="@{/bookings}" class="btn btn-secondary">Cancel</a> <!-- Ссылка для отмены -->
+        </div>
 
-<a th:href="@{/bookings}">Cancel</a> <!-- Ссылка для отмены -->
+    </form>
+</div>
+
+<!-- Подключение Bootstrap JS и зависимости -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 </html>

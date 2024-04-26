@@ -16,7 +16,7 @@
                 <!-- Используем строки Bootstrap для позиционирования -->
                 <div class="form-group"> <!-- Группа для поля ввода -->
                     <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" th:field="*{name}" class="form-control" required/> <!-- Добавление классов Bootstrap -->
+                    <input type="text" id="name" name="name" th:field="*{name}" class="form-control" required/> <!-- Использование Bootstrap -->
                 </div>
 
                 <div class="form-group">
@@ -28,4 +28,12 @@
                 <a th:href="@{/customers}" class="btn btn-secondary">Cancel</a> <!-- Кнопка для отмены -->
             </form>
         </div>
-    </div>
+    </div> <!-- Закрываем тег `card` -->
+</div> <!-- Закрываем тег `container` -->
+
+<!-- Подключение необходимых скриптов Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> <!-- Подключение jQuery -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> <!-- Подключение Bootstrap JS -->
+
+</body>
+</html>

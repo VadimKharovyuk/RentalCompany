@@ -2,25 +2,44 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Add Car</title>
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> <!-- Подключение Bootstrap CSS -->
 </head>
 <body>
-<header>
-    <h1>Add New Car</h1>
-</header>
+<div class="container mt-4"> <!-- Контейнер с отступами -->
+    <header>
+        <h1>Add New Car</h1>
+    </header>
 
-<main>
-    <form th:action="@{/cars}" th:object="${car}" method="post">
-        <div>
-            <label>Brand:</label>
-            <input type="text" th:field="*{brand}" required /> <!-- Имя поля должно совпадать с свойством класса Car -->
-        </div>
-        <div>
-            <label>Model:</label>
-            <input type="text" th:field="*{model}" required />
-        </div>
-        <!-- Другие поля -->
-        <button type="submit">Add Car</button>
-    </form>
-</main>
+    <main>
+        <form th:action="@{/cars}" th:object="${car}" method="post"> <!-- Указан объект `Car` -->
+            <!-- Используем Bootstrap для стилизации полей ввода -->
+            <div class="form-group">
+                <label>Brand:</label>
+                <input type="text" th:field="*{brand}" class="form-control" required /> <!-- Поле с Bootstrap class -->
+            </div>
+            <div class="form-group">
+                <label>Model:</label>
+                <input type="text" th:field="*{model}" class="form-control" required />
+            </div>
+            <!-- Добавим другие поля, если необходимо -->
+            <div class="form-group">
+                <label>Rental Price:</label>
+                <input type="number" th:field="*{rentalPrice}" class="form-control" step="0.01" required /> <!-- Дополнительное поле -->
+            </div>
+
+            <button type="submit" class="btn btn-primary">Add Car</button> <!-- Кнопка с Bootstrap class -->
+        </form>
+    </main>
+
+    <!-- Футер -->
+    <footer class="mt-4 text-center">
+        <p>&copy; 2024 Rental Company. All rights reserved.</p>
+    </footer>
+</div>
+
+<!-- Подключение необходимых скриптов Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 </html>

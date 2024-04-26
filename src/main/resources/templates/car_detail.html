@@ -2,26 +2,53 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Car Detail</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> <!-- Подключение Bootstrap CSS -->
 </head>
 <body>
-<header>
-    <h1 th:text="${car.brand + ' ' + car.model}">Car Details</h1>
-</header>
 
-<main>
-    <p><strong>Brand:</strong> <span th:text="${car.brand}"></span></p>
-    <p><strong>Model:</strong> <span th:text="${car.model}"></span></p>
-    <p><strong>Rental Price:</strong> <span th:text="${car.rentalPrice}"></span></p>
-    <p><strong>Status:</strong> <span th:text="${car.status}"></span></p>
-    <p><strong>Year:</strong> <span th:text="${car.year}"></span></p>
+<div class="container mt-4"> <!-- Контейнер Bootstrap -->
+    <header class="mb-3"> <!-- Отступ снизу -->
+        <h1 th:text="${car.brand + ' ' + car.model}">Car Details</h1>
+    </header>
 
-    <a th:href="@{/cars/{id}/edit(id=${car.id})}">Edit Car</a>
-    <a th:href="@{/cars}">Back to Car List</a>
-</main>
+    <main>
+        <div class="row mb-2"> <!-- Используем строки для выравнивания -->
+            <div class="col-md-6"> <!-- Колонки Bootstrap -->
+                <p><strong>Brand:</strong> <span th:text="${car.brand}"></span></p>
+            </div>
+            <div class="col-md-6">
+                <p><strong>Model:</strong> <span th:text="${car.model}"></span></p>
+            </div>
+        </div>
 
-<footer>
-    <p>&copy; 2024 Rental Company. All rights reserved.</p>
-</footer>
+        <div class="row mb-2"> <!-- Следующий ряд -->
+            <div class="col-md-6">
+                <p><strong>Rental Price:</strong> <span th:text="${car.rentalPrice}"></span></p>
+            </div>
+            <div class="col-md-6">
+                <p><strong>Status:</strong> <span th:text="${car.status}"></span></p>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <p><strong>Year:</strong> <span th:text="${car.year}"></span></p>
+            </div>
+        </div>
+
+        <!-- Кнопки для редактирования и возврата -->
+        <a th:href="@{/cars/{id}/edit(id=${car.id})}" class="btn btn-primary">Edit Car</a>
+        <a th:href="@{/cars}" class="btn btn-secondary ml-2">Back to Car List</a> <!-- Отступ слева -->
+    </main>
+
+    <footer class="mt-4 text-center"> <!-- Центрируем текст -->
+        <p>&copy; 2024 Rental Company. All rights reserved.</p>
+    </footer>
+</div>
+
+<!-- Подключение Bootstrap JS и зависимости -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 </html>

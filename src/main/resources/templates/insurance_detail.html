@@ -2,41 +2,56 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Insurance Detail</title>
+    <!-- Подключение Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-<h1>Insurance Detail</h1>
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h1>Insurance Detail</h1>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered"> <!-- Используем Bootstrap для стилизации -->
+                <tr>
+                    <th>ID:</th>
+                    <td th:text="${insurance.id}"></td>
+                </tr>
+                <tr>
+                    <th>Type:</th>
+                    <td th:text="${insurance.insuranceType}"></td>
+                </tr>
+                <tr>
+                    <th>Start Date:</th>
+                    <td th:text="${insurance.startDate}"></td>
+                </tr>
+                <tr>
+                    <th>End Date:</th>
+                    <td th:text="${insurance.endDate}"></td>
+                </tr>
+                <tr>
+                    <th>Cost:</th>
+                    <td th:text="${insurance.cost}"></td>
+                </tr>
+                <tr>
+                    <th>Car:</th>
+                    <td th:text="${insurance.car?.brand + ' ' + insurance.car?.model}"></td>
+                </tr>
+                <tr>
+                    <th>Booking:</th>
+                    <td th:text="${insurance.booking?.id}"></td>
+                </tr>
+            </table>
 
-<table>
-    <tr>
-        <th>ID:</th>
-        <td th:text="${insurance.id}"></td>
-    </tr>
-    <tr>
-        <th>Type:</th>
-        <td th:text="${insurance.insuranceType}"></td>
-    </tr>
-    <tr>
-        <th>Start Date:</th>
-        <td th:text="${insurance.startDate}"></td>
-    </tr>
-    <tr>
-        <th>End Date:</th>
-        <td th:text="${insurance.endDate}"></td>
-    </tr>
-    <tr>
-        <th>Cost:</th>
-        <td th:text="${insurance.cost}"></td>
-    </tr>
-    <tr>
-        <th>Car:</th>
-        <td th:text="${insurance.car?.brand + ' ' + insurance.car?.model}"></td>
-    </tr>
-    <tr>
-        <th>Booking:</th>
-        <td th:text="${insurance.booking?.id}"></td>
-    </tr>
-</table>
+            <!-- Ссылки для управления -->
+            <a th:href="@{/insurances}" class="btn btn-secondary">Back to List</a> <!-- Возврат к списку -->
+            <a th:href="@{/insurances/{id}/edit(id=${insurance.id})}" class="btn btn-primary">Edit Insurance</a> <!-- Ссылка для редактирования -->
+        </div>
+    </div>
+</div>
 
-<a th:href="@{/insurances}">Back to List</a> <!-- Ссылка для возвращения к списку страховок -->
+<!-- Подключение необходимых скриптов Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

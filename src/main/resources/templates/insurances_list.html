@@ -2,41 +2,50 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Insurance List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-<h1>Insurance List</h1>
+<div class="container mt-5"> <!-- Добавление контейнера Bootstrap -->
+    <h1>Insurance List</h1>
 
-<table border="1">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Type</th>
-        <th>Start Date</th>
-        <th>End Date</th>
-        <th>Cost</th>
-        <th>Car</th>
-        <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <!-- Перебор всех страховок -->
-    <tr th:each="insurance : ${insurances}">
-        <td th:text="${insurance.id}"></td>
-        <td th:text="${insurance.insuranceType}"></td>
-        <td th:text="${insurance.startDate}"></td>
-        <td th:text="${insurance.endDate}"></td>
-        <td th:text="${insurance.cost}"></td>
-        <td th:text="${insurance.car?.brand + ' ' + insurance.car?.model}"></td>
-        <td>
-            <!-- Ссылка на детали страховки -->
-            <a th:href="@{/insurances/{id}(id=${insurance.id})}">View</a>
-            <!-- Ссылка на удаление страховки -->
-            <a th:href="@{/insurances/delete/{id}(id=${insurance.id})}" th:onclick="return confirm('Are you sure you want to delete this insurance?');">Delete</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
+    <!-- Таблица со страховками -->
+    <table class="table table-striped"> <!-- Использование классов Bootstrap -->
+        <thead class="thead-dark"> <!-- Заголовок таблицы с темным фоном -->
+        <tr>
+            <th>ID</th>
+            <th>Type</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Cost</th>
+            <th>Car</th>
+            <th>Actions</th> <!-- Кнопки управления -->
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Перебор всех страховок -->
+        <tr th:each="insurance : ${insurances}">
+            <td th:text="${insurance.id}"></td>
+            <td th:text="${insurance.insuranceType}"></td>
+            <td th:text="${insurance.startDate}"></td>
+            <td th:text="${insurance.endDate}"></td>
+            <td th:text="${insurance.cost}"></td>
+            <td th:text="${insurance.car?.brand + ' ' + insurance.car?.model}"></td>
+            <td>
+                <!-- Ссылка на детали страховки -->
+                <a th:href="@{/insurances/{id}(id=${insurance.id})}" class="btn btn-info btn-sm">View</a>
+                <!-- Ссылка на удаление страховки -->
+                <a th:href="@{/insurances/delete/{id}(id=${insurance.id})}" class="btn btn-danger btn-sm" th:onclick="return confirm('Are you sure you want to delete this insurance?');">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 
-<a th:href="@{/insurances/create}">Create New Insurance</a> <!-- Ссылка на создание новой страховки -->
+    <!-- Ссылка на создание новой страховки -->
+    <a th:href="@{/insurances/create}" class="btn btn-success">Create New Insurance</a>
+</div>
+
+<!-- Подключение необходимых скриптов Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

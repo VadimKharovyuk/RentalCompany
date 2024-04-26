@@ -2,38 +2,54 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Booking Form</title>
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> <!-- Подключение Bootstrap CSS -->
 </head>
 <body>
 
-<h1>Create a New Booking with Insurance</h1>
+<div class="container mt-4"> <!-- Используем контейнер Bootstrap -->
+    <h1>Create a New Booking with Insurance</h1>
 
-<!-- Форма бронирования -->
-<form method="post" th:action="@{/bookings}" th:object="${booking}"> <!-- Объект `Booking` -->
+    <!-- Форма бронирования -->
+    <form method="post" th:action="@{/bookings}" th:object="${booking}" class="form-horizontal"> <!-- Объект `Booking` -->
 
-    <!-- Поля для бронирования -->
-    <label for="bookingName">Booking Name:</label>
-    <select id="bookingName" th:field="*{bookingName}" required>
-        <option value="business">Business</option>  <!-- Пример значений -->
-        <option value="vacation">Vacation</option>
-        <option value="family">Family</option>
-    </select>
+        <!-- Поля для бронирования -->
+        <div class="form-group"> <!-- Используем группы для полей -->
+            <label for="bookingName" class="col-form-label">Booking Name:</label>
+            <select id="bookingName" th:field="*{bookingName}" class="form-control" required> <!-- Bootstrap класс `form-control` -->
+                <option value="business">Business</option>  <!-- Пример значений -->
+                <option value="vacation">Vacation</option>
+                <option value="family">Family</option>
+            </select>
+        </div>
 
-    <label for="bookingDate">Booking Date:</label>
-    <input type="date" id="bookingDate" th:field="*{bookingDate}" required/>
+        <div class="form-group">
+            <label for="bookingDate" class="col-form-label">Booking Date:</label>
+            <input type="date" id="bookingDate" th:field="*{bookingDate}" class="form-control" required/>
+        </div>
 
-    <!-- Поля для страховки -->
-    <h2>Insurance Details</h2>
+        <!-- Поля для страховки -->
+        <h2>Insurance Details</h2>
 
-    <label for="insuranceType">Insurance Type:</label>
-    <select id="insuranceType" th:field="*{insurance.insuranceType}" required>
-        <option value="standard">Standard</option>
-        <option value="full">Full</option>
-    </select>
+        <div class="form-group">
+            <label for="insuranceType" class="col-form-label">Insurance Type:</label>
+            <select id="insuranceType" th:field="*{insurance.insuranceType}" class="form-control" required>
+                <option value="standard">Standard</option>
+                <option value="full">Full</option>
+            </select>
+        </div>
 
-    <!-- Другие поля формы бронирования и страховки -->
-    <button type="submit">Save</button>
-    <a th:href="@{/bookings}">Cancel</a> <!-- Ссылка для отмены -->
-</form>
+        <!-- Кнопки управления -->
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a th:href="@{/bookings}" class="btn btn-secondary">Cancel</a> <!-- Ссылка для отмены -->
+        </div>
+
+    </form>
+</div>
+
+<!-- Подключение Bootstrap JS и зависимости -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
 </html>

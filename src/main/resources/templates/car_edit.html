@@ -2,55 +2,59 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Edit Car</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> <!-- Подключение Bootstrap CSS -->
 </head>
 <body>
-<header>
-    <h1>Edit Car</h1>
-</header>
+<div class="container mt-4"> <!-- Контейнер для отступов -->
+    <header>
+        <h1>Edit Car</h1>
+    </header>
 
-<main>
-    <form th:action="@{/cars/{id}/edit(id=${car.id})}" th:object="${car}" method="post">
-        <div>
-            <label for="brand">Brand:</label>
-            <input type="text" id="brand" name="brand" th:field="*{brand}" />
-        </div>
+    <main>
+        <form th:action="@{/cars/{id}/edit(id=${car.id})}" th:object="${car}" method="post"> <!-- Исправлено вложение -->
+            <!-- Блок ввода -->
+            <div class="form-group">
+                <label for="brand">Brand:</label>
+                <input type="text" id="brand" name="brand" th:field="*{brand}" class="form-control" /> <!-- Использование Bootstrap class -->
+            </div>
 
-        <div>
-            <label for="model">Model:</label>
-            <input type="text" id="model" name="model" th:field="*{model}" />
-        </div>
+            <div class="form-group">
+                <label for="model">Model:</label>
+                <input type="text" id="model" name="model" th:field="*{model}" class="form-control" />
+            </div>
 
-        <div>
-            <label for="rental_price">Rental Price:</label>
-            <form th:action="@{/cars/{id}/edit(id=${car.id})}" th:object="${car}" method="post">
-                <div>
-                    <label for="rental_price">Rental Price:</label>
-                    <input type="text" id="rental_price" name="rental_price" th:field="*{rentalPrice}" /> <!-- Убедитесь, что имя совпадает -->
-                </div>
-            </form>
+            <div class="form-group">
+                <label for="rental_price">Rental Price:</label>
+                <input type="text" id="rental_price" name="rental_price" th:field="*{rentalPrice}" class="form-control" />
+            </div>
 
-        </div>
+            <div class="form-group">
+                <label for="year">Year:</label>
+                <input type="number" id="year" name="year" th:field="*{year}" class="form-control" />
+            </div>
 
-        <div>
-            <label for="year">Year:</label>
-            <input type="text" id="year" name="year" th:field="*{year}" />
-        </div>
+            <div class="form-group">
+                <label for="status">Status:</label>
+                <select id="status" name="status" th:field="*{status}" class="form-control"> <!-- Список со стилем -->
+                    <option value="AVAILABLE">Available</option>
+                    <option value="UNAVAILABLE">Unavailable</option>
+                </select>
+            </div>
 
-        <div>
-            <label for="status">Status:</label>
-            <select id="status" name="status" th:field="*{status}">
-                <option value="AVAILABLE">Available</option>
-                <option value="UNAVAILABLE">Unavailable</option>
-            </select>
-        </div>
+            <!-- Кнопка отправки -->
+            <button type="submit" class="btn btn-primary">Update</button> <!-- Класс Bootstrap для кнопки -->
+        </form>
+    </main>
 
-        <button type="submit">Update</button>
-    </form>
-</main>
+    <!-- Футер -->
+    <footer class="mt-4 text-center">
+        <p>&copy; 2024 Rental Company. All rights reserved.</p>
+    </footer>
+</div>
 
-<footer>
-    <p>&copy; 2024 Rental Company. All rights reserved.</p>
-</footer>
+<!-- Подключение Bootstrap JS и зависимости -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 </html>
